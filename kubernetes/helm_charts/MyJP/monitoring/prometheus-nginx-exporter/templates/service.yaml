@@ -3,16 +3,21 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "prometheus-nginx-exporter.fullname" . }}
-  namespace: {{ template "prometheus-nginx-exporter.namespace" . }}
+  namespace: {{ .Values.namespace | default "monitoring" }}
+
   {{- if or .Values.service.annotations .Values.additionalAnnotations }}
   annotations:
-  {{ toYaml .Values.service.annotations | indent 4 }}
-  {{- with .Values.additionalAnnotations }}
-  {{ toYaml . | indent 4 }}
+    {{- if .Values.service.annotations }}
+      {{ toYaml .Values.service.annotations | indent 4 }}
+    {{- end }}
+    {{- if .Values.additionalAnnotations }}
+      {{ toYaml .Values.additionalAnnotations | indent 4 }}
+    {{- end }}
   {{- end }}
-  {{- end }}
+
   labels:
     {{- include "prometheus-nginx-exporter.labels" . | indent 4 }}
+
 spec:
   type: {{ .Values.service.type }}
   ports:
