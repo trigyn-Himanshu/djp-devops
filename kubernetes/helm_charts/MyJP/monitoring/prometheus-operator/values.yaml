@@ -2854,9 +2854,10 @@ prometheus:
   ## Configuration for Prometheus service
   ##
   service:
-    annotations: {}
+    annotations:service.beta.kubernetes.io/oci-load-balancer-shape: "100Mbps"
+      service.beta.kubernetes.io/oci-load-balancer-internal: "false"
     labels: {}
-    clusterIP: ""
+   LoadBalancer : ""
 
     ## Port for Prometheus Service to listen on
     ##
