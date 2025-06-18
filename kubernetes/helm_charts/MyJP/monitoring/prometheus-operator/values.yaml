@@ -464,9 +464,10 @@ alertmanager:
   ## Configuration for Alertmanager service
   ##
   service:
-    annotations: {}
+    annotations:service.beta.kubernetes.io/oci-load-balancer-shape: "100Mbps"
+      service.beta.kubernetes.io/oci-load-balancer-internal: "false"
     labels: {}
-    clusterIP: ""
+    LoadBalancer: ""
 
     ## Port for Alertmanager Service to listen on
     ##
